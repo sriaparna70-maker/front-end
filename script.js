@@ -1,6 +1,6 @@
 // Replace with your Render backend URL after deploying, e.g.:
 // const BACKEND_URL = "https://sree-sastha-backend.onrender.com";
-const BACKEND_URL = "https://YOUR-BACKEND.onrender.com";
+const BACKEND_URL = "https://sree-sastha-backend.onrender.com";
 
 const toggle = document.querySelector('.nav__toggle');
 const menu = document.getElementById('menu');

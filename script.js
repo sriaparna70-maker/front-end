@@ -21,3 +21,26 @@ if (form){ form.addEventListener('submit', async (e) => {
        note.textContent = 'Thanks! Your message was sent.'; form.reset();
   }catch(err){ console.error(err); note.textContent = 'Could not send. Please try again or email us.'; }
 }); }
+// Vision & Mission tabs with fade
+(function () {
+  const scope  = document.querySelector('#vision-mission');
+  if (!scope) return;
+
+  const tabs   = scope.querySelectorAll('.tab');
+  const panels = scope.querySelectorAll('.tab-panel');
+
+  function show(targetId) {
+    panels.forEach(p => p.classList.toggle('is-visible', p.id === targetId));
+    tabs.forEach(t => {
+      const on = t.dataset.target === targetId;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.target)));
+
+  // Ensure a default on first load
+  if (!scope.querySelector('.tab-panel.is-visible')) show('panel-vision');
+})();
+

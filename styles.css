@@ -27,3 +27,16 @@ h1,h2,h3{line-height:1.2;margin:0 0 .6rem}h1{font-size:clamp(2rem,1.5rem + 2.2vw
 @media (max-width:575.98px){.nav__toggle{display:inline-block;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--text);padding:.5rem .75rem;border-radius:10px}
 .nav__list{position:absolute;right:1rem;top:64px;width:min(92vw,360px);background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.5rem;gap:.25rem;display:none;flex-direction:column}
 .nav__list.show{display:flex}.hero__grid{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}.btn{width:100%;text-align:center}.cards{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}.projects{grid-template-columns:1fr}}
+/* Tabs */
+.tabs { display:flex; gap:.6rem; flex-wrap:wrap; margin:.75rem 0 1rem; }
+.tab  { padding:.55rem 1rem; border:1px solid rgba(255,255,255,.15); border-radius:999px;
+        background:transparent; color:#e8eef6; cursor:pointer; font-weight:700; }
+.tab.is-active { background:#ffd361; color:#0f1722; border-color:#ffd361; }
+
+/* Panels (hidden by default) + fade */
+.tab-panel { display:none; opacity:0; transition: opacity .32s ease; }
+.tab-panel.is-visible { display:block; opacity:1; }
+
+/* If you had a .fade class earlier that forced opacity:0, neutralize it */
+.tab-panel.fade { opacity:0; }
+.tab-panel.fade.is-visible { opacity:1; }

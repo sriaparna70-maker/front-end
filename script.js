@@ -43,4 +43,58 @@ if (form){ form.addEventListener('submit', async (e) => {
   // Ensure a default on first load
   if (!scope.querySelector('.tab-panel.is-visible')) show('panel-vision');
 })();
+// ===== Open Access Inquiry (new form) =====
+(function(){
+  const form = document.getElementById('oaInquiryForm');
+  if(!form) return;
+  const note = document.getElementById('oaFormNote');
+
+  function fileToBase64(file){
+    return new Promise((resolve,reject)=>{
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result).split(',')[1]);
+      r.onerror = reject;
+      r.readAsDataURL(file);
+    });
+  }
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    note.textContent = 'Sending…';
+    const fd = new FormData(form);
+    const payload = {
+      topic: 'Open Access Inquiry',
+      name: fd.get('name'),
+      company: fd.get('company'),
+      email: fd.get('email'),
+      phone: fd.get('phone'),
+      sanctioned_load: fd.get('sanctioned_load'),
+      monthly_kwh: fd.get('monthly_kwh'),
+      callback: !!fd.get('callback')
+    };
+    const file = fd.get('eb_bill');
+    if(file && file.size){
+      payload.eb_bill = {
+        filename: file.name,
+        content_type: file.type,
+        b64: await fileToBase64(file)
+      };
+    }
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/oa-inquiry`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const out = await res.json();
+      if(!res.ok || !out.ok) throw new Error(out.error||'Failed');
+      note.textContent = 'Thanks! We got your request.';
+      form.reset();
+    } catch(err){
+      console.error(err);
+      note.textContent = 'Could not send. Please email us.';
+    }
+  });
+})();
+
 

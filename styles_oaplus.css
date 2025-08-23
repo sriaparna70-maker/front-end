@@ -1,0 +1,6 @@
+/* Open Access page extras */
+.hero--oa {
+  background: radial-gradient(600px 300px at 10% -10%, rgba(255,183,3,.25), transparent 60%),
+              radial-gradient(600px 300px at 90% 110%, rgba(30,136,229,.2), transparent 60%);
+}
+.nav__list .is-current { text-decoration: underline; }
